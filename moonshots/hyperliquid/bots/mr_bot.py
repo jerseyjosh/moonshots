@@ -1,6 +1,6 @@
 from hyperliquid.utils.constants import MAINNET_API_URL, TESTNET_API_URL
 
-from moonshots.hyperliquid.setup import setup
+from moonshots.hyperliquid.utils import setup
 
 class Agent:
     """

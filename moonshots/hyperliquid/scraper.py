@@ -1,7 +1,7 @@
 import csv
 import os
 
-from setup import setup
+from moonshots.setup import setup
 from utils import timestamp
 
 from hyperliquid.utils.constants import MAINNET_API_URL

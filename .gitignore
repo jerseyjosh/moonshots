@@ -1,2 +1,4 @@
-/venv 
-config.json
+# ignore everything
+*
+# except moonshots directory
+!moonshots/

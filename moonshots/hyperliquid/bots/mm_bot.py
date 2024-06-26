@@ -7,7 +7,7 @@ from hyperliquid.utils.constants import MAINNET_API_URL, TESTNET_API_URL
 
 import pandas as pd
 
-from setup import setup
+from moonshots.setup import setup
 
 CONFIG = {
     "symbol": 'PURR/USDC',
