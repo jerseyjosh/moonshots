@@ -1,4 +1,5 @@
 # ignore everything
-*
+/*
 # except moonshots directory
-!moonshots/
+!/.gitignore
+!/moonshots/
