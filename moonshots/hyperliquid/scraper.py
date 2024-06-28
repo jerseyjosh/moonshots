@@ -1,27 +1,21 @@
 import csv
 import os
+from datetime import datetime
 
-from moonshots.setup import setup
-from utils import timestamp
+from moonshots.hyperliquid.base import Hyperliquid
+from moonshots.hyperliquid.utils import setup
 
 from hyperliquid.utils.constants import MAINNET_API_URL
 
-class Scraper:
-    def __init__(
-            self, 
-            base_url: str = MAINNET_API_URL,
-            output_path: str = './mids.csv'
-    ):
-        self.base_url = base_url
-        self.output_path = output_path
-        self.fieldnames_added = False
+class Scraper(Hyperliquid):
+    def __init__(self, skip_ws=False):
+        super().__init__(skip_ws)
 
     @staticmethod
     def timestamp():
-        return timestamp()
+        return datetime.now().timestamp()
         
     def start(self):
-        self.address, self.info, self.exchange = setup(base_url=self.base_url, skip_ws=False)  
         self.info.subscribe({'type': 'allMids'}, callback=self.on_all_mids)
 
     def on_all_mids(self, msg):
