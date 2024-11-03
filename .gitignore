@@ -4,3 +4,4 @@
 !/.gitignore
 !/moonshots/
 !setup.py
+!requirements.txt
