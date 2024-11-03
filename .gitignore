@@ -3,3 +3,4 @@
 # except moonshots directory
 !/.gitignore
 !/moonshots/
+!setup.py
