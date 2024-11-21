@@ -14,8 +14,6 @@ from moonshots.hyperliquid.client import HyperliquidAsync
 from moonshots.hyperliquid.websocket_manager import WebsocketManager
 from moonshots.hyperliquid.pandas_utils import parse_candles_to_pandas
 
-DATA_DIR = '../../../data/'
-
 class Scraper(HyperliquidAsync):
     """
     Scraping functionality for Hyperliquid, both historical and live.
@@ -93,6 +91,7 @@ class Scraper(HyperliquidAsync):
         await asyncio.create_task(self.periodic_save(save_path))
 
 if __name__=="__main__":
+    DATA_DIR = '../../../data/'
     logging.basicConfig(level=logging.INFO)
     scraper = Scraper()
     save_path = os.path.join(DATA_DIR, "mids.csv")

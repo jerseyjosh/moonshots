@@ -1,8 +1,6 @@
 import asyncio
-import uvloop
 import websockets
 import logging
-import orjson
 
 from moonshots.hyperliquid.constants import MAINNET_WS_URL
 from moonshots.utils.json import dumps, loads
@@ -22,7 +20,7 @@ class WebsocketManager:
         self.ws = await websockets.connect(self.base_url)
         logger.debug("Websocket connected")
         self.ws_ready = True
-        #asyncio.create_task(self.send_ping())
+        asyncio.create_task(self.send_ping())
         asyncio.create_task(self.listen())
         return self
     
@@ -119,21 +117,3 @@ class WebsocketManager:
             return f'candle:{ws_msg["data"]["s"].lower()}:{ws_msg["data"]["i"]}'
         else:
             raise ValueError(f"Unknown channel: {ws_msg['channel']}")
-
-# if __name__ == "__main__":
-
-#     logging.basicConfig(level=logging.DEBUG)
-
-#     async def test_callback(msg):
-#         print(f'CALLBACK: {str(msg)[:100]}')
-
-#     async def main():
-#         try:
-#             ws = WebsocketManager()
-#             await ws.connect()
-#             await ws.subscribe({"type": "allMids"}, test_callback)
-#             await asyncio.Future() # keep running
-#         except Exception as e:
-#             print(e)
-    
-#     uvloop.run(main())
