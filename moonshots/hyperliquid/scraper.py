@@ -10,7 +10,7 @@ from aiolimiter import AsyncLimiter
 from tqdm.asyncio import tqdm_asyncio
 
 from moonshots.hyperliquid.constants import MAINNET_WS_URL, MAINNET_API_URL
-from moonshots.hyperliquid.async_client import HyperliquidAsync
+from moonshots.hyperliquid.client import HyperliquidAsync
 from moonshots.hyperliquid.websocket_manager import WebsocketManager
 from moonshots.hyperliquid.pandas_utils import parse_candles_to_pandas
 
@@ -32,7 +32,9 @@ class Scraper(HyperliquidAsync):
             spot: bool = False, 
             interval: str = "1h", 
             parse_pandas: bool = True,
-            requests_per_minute: int = 60
+            requests_per_minute: int = 60,
+            start: Optional[str] = None,
+            end: Optional[str] = None
             ):
         """
         Retrieve historical candles for a list of coins, or whole universe if coins not given.
@@ -42,7 +44,7 @@ class Scraper(HyperliquidAsync):
             coins = [item['name'] for item in meta['universe']]
         async with AsyncLimiter(requests_per_minute, 60):
             self.logger.debug(f"Retrieving historical candles for {len(coins)} coins with {self.MAX_REQUESTS_PER_MINUTE} requests per minute.")
-            candle_snapshots = await tqdm_asyncio.gather(*[self.candle_snapshot(coin, interval) for coin in coins])
+            candle_snapshots = await tqdm_asyncio.gather(*[self.candle_snapshot(coin, interval, start, end) for coin in coins])
         flat_candle_snapshots = [item for sublist in candle_snapshots for item in sublist]
         return parse_candles_to_pandas(flat_candle_snapshots) if parse_pandas else flat_candle_snapshots
 

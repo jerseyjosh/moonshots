@@ -1,0 +1,9 @@
+{
+    "ema_n_minutes": 100,
+    "config_refresh_interval": 60,
+    "std_entry_threshold": 1.0,
+    "tx_cost": 0.001,
+    "max_exposure": 0.8,
+    "max_single_position": 0.5,
+    "trading_interval": 5
+}
